@@ -1,24 +1,22 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import SignUpForm from './components/SignUpForm';
 
-function App() {
+const App = () => {
+  const handleSignUp = (name: string, email: string) => {
+    // eslint-disable-next-line no-console
+    console.log(`Name: ${name}; Email: ${email}`);
+  };
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Event Hub Modern: Subconscious Dynamics</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <SignUpForm onSubmit={handleSignUp} />
       </header>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
