@@ -1,7 +1,7 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SignUpForm from './components/SignUpForm';
+import CalendarMonthView from './components/Calendar/MonthView';
 
 const App = () => {
   const handleSignUp = (name: string, email: string) => {
@@ -14,6 +14,7 @@ const App = () => {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Event Hub Modern: Subconscious Dynamics</p>
         <SignUpForm onSubmit={handleSignUp} />
+        <CalendarMonthView date={new Date()} />
       </header>
     </div>
   );

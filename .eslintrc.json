@@ -13,6 +13,8 @@
   "rules": {
     "@typescript-eslint/semi": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "@typescript-eslint/non-nullable-type-assertion-style": 0,
     "@typescript-eslint/member-delimiter-style": [
       "error",
       {
