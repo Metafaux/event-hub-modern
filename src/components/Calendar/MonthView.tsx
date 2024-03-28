@@ -1,12 +1,16 @@
-import React from 'react';
+import { daysInMonth } from './utils';
 
 interface CalendarProps {
   date: Date;
 }
 
-const MONTH_INCREMENT = 1;
-const DEFAULT_DAY = 0;
 const FIRST_DAY = 1;
+
+const firstDayOfMonth = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  return new Date(year, month, FIRST_DAY).getDay();
+};
 
 /**
  * CalendarMonthView
@@ -17,33 +21,21 @@ const FIRST_DAY = 1;
  * @param date Date object
  */
 
-const CalendarMonthView: React.FC<CalendarProps> = ({ date }) => {
-  const daysInMonth = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    return new Date(year, month + MONTH_INCREMENT, DEFAULT_DAY).getDate();
-  };
-
-  const firstDayOfMonth = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    return new Date(year, month, FIRST_DAY).getDay();
-  };
-
+const CalendarMonthView = ({ date }: CalendarProps) => {
   const renderDays = () => {
     const totalDays = daysInMonth(date);
     const startingDay = firstDayOfMonth(date);
     const days = [];
 
     for (let i = 0; i < startingDay; i++) {
-      days.push(<div key={`empty-${i}`} className="empty-day"></div>);
+      days.push(<td key={`empty-${i}`} className="empty-day"></td>);
     }
 
     for (let i = 1; i <= totalDays; i++) {
       days.push(
-        <div key={`day-${i}`} className="day">
+        <td key={`day-${i}`} className="day">
           {i}
-        </div>
+        </td>
       );
     }
 
@@ -51,18 +43,20 @@ const CalendarMonthView: React.FC<CalendarProps> = ({ date }) => {
   };
 
   return (
-    <div className="calendar">
-      <div className="days-header">
-        <div>Sun</div>
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-      </div>
-      <div className="days">{renderDays()}</div>
-    </div>
+    <table className="calendar">
+      <tbody>
+        <tr className="days-header">
+          <td>Sun</td>
+          <td>Mon</td>
+          <td>Tue</td>
+          <td>Wed</td>
+          <td>Thu</td>
+          <td>Fri</td>
+          <td>Sat</td>
+        </tr>
+        <tr className="days">{renderDays()}</tr>
+      </tbody>
+    </table>
   );
 };
 
