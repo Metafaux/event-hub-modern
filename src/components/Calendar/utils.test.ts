@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { daysInMonth } from './utils';
+import { daysInMonth, firstSundayOfMonthView } from './utils';
 
 describe('Calendar logic', () => {
   it('returns the correct number of days in a month', () => {
@@ -29,5 +29,23 @@ describe('Calendar logic', () => {
     expect(daysInMonth(new Date(2024, 10, 30))).toEqual(30);
     // December
     expect(daysInMonth(new Date(2024, 11, 31))).toEqual(31);
+  });
+
+  it('finds the date of the first Sunday to display in month view', () => {
+    const januaryFirstSunday = firstSundayOfMonthView(new Date(2024, 0, 1));
+    expect(januaryFirstSunday.getDate()).toEqual(31);
+    expect(januaryFirstSunday.getDay()).toEqual(0);
+
+    expect(firstSundayOfMonthView(new Date(2024, 1, 20)).getDate()).toEqual(28);
+    expect(firstSundayOfMonthView(new Date(2024, 2, 30)).getDate()).toEqual(25);
+    expect(firstSundayOfMonthView(new Date(2024, 3, 2)).getDate()).toEqual(31);
+    expect(firstSundayOfMonthView(new Date(2024, 4, 31)).getDate()).toEqual(28);
+    expect(firstSundayOfMonthView(new Date(2024, 5, 15)).getDate()).toEqual(26);
+    expect(firstSundayOfMonthView(new Date(2024, 6, 1)).getDate()).toEqual(30);
+    expect(firstSundayOfMonthView(new Date(2024, 7, 1)).getDate()).toEqual(28);
+    expect(firstSundayOfMonthView(new Date(2024, 8, 1)).getDate()).toEqual(1);
+    expect(firstSundayOfMonthView(new Date(2024, 9, 1)).getDate()).toEqual(29);
+    expect(firstSundayOfMonthView(new Date(2024, 10, 1)).getDate()).toEqual(27);
+    expect(firstSundayOfMonthView(new Date(2024, 11, 1)).getDate()).toEqual(1);
   });
 });
