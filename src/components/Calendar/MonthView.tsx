@@ -1,45 +1,29 @@
-import { daysInMonth } from './utils';
+import { getMonthGridData } from './utils';
+import styles from './MonthView.module.scss';
 
 interface CalendarProps {
   date: Date;
 }
 
-const FIRST_DAY = 1;
-
-const firstDayOfMonth = (date: Date) => {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  return new Date(year, month, FIRST_DAY).getDay();
-};
-
 /**
  * CalendarMonthView
- *
- * TODO: Try a table instead of div
- * - refactor loops, rename DEFAULT_DAY
  *
  * @param date Date object
  */
 
 const CalendarMonthView = ({ date }: CalendarProps) => {
-  const renderDays = () => {
-    const totalDays = daysInMonth(date);
-    const startingDay = firstDayOfMonth(date);
-    const days = [];
-
-    for (let i = 0; i < startingDay; i++) {
-      days.push(<td key={`empty-${i}`} className="empty-day"></td>);
-    }
-
-    for (let i = 1; i <= totalDays; i++) {
-      days.push(
-        <td key={`day-${i}`} className="day">
-          {i}
-        </td>
-      );
-    }
-
-    return days;
+  const renderWeeks = () => {
+    const FIRST_INDEX = 0;
+    const monthGridData = getMonthGridData(date);
+    return monthGridData.map((week, i) => (
+      <tr key={`week-${week[FIRST_INDEX]}`} className="weekRow">
+        {week.map((day, j) => (
+          <td key={`day-${day}`} className={styles.dayCell}>
+            {day}
+          </td>
+        ))}
+      </tr>
+    ));
   };
 
   return (
@@ -54,7 +38,7 @@ const CalendarMonthView = ({ date }: CalendarProps) => {
           <td>Fri</td>
           <td>Sat</td>
         </tr>
-        <tr className="days">{renderDays()}</tr>
+        {renderWeeks()}
       </tbody>
     </table>
   );
