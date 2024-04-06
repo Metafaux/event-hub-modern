@@ -14,7 +14,9 @@ const App = () => {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Event Hub Modern: Subconscious Dynamics</p>
         <SignUpForm onSubmit={handleSignUp} />
-        <CalendarMonthView date={new Date()} />
+        <div className="calendarTestDiv">
+          <CalendarMonthView date={new Date()} />
+        </div>
       </header>
     </div>
   );

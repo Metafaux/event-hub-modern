@@ -5,6 +5,8 @@ interface CalendarProps {
   date: Date;
 }
 
+const dayNameDisplayText = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 /**
  * CalendarMonthView
  *
@@ -19,7 +21,7 @@ const CalendarMonthView = ({ date }: CalendarProps) => {
       <tr key={`week-${week[FIRST_INDEX]}`} className="weekRow">
         {week.map((day, j) => (
           <td key={`day-${day}`} className={styles.dayCell}>
-            {day}
+            <div>{day}</div>
           </td>
         ))}
       </tr>
@@ -27,16 +29,12 @@ const CalendarMonthView = ({ date }: CalendarProps) => {
   };
 
   return (
-    <table className="calendar">
+    <table className={styles.calendarTable}>
       <tbody>
-        <tr className="days-header">
-          <td>Sun</td>
-          <td>Mon</td>
-          <td>Tue</td>
-          <td>Wed</td>
-          <td>Thu</td>
-          <td>Fri</td>
-          <td>Sat</td>
+        <tr className={styles.daysHeader}>
+          {dayNameDisplayText.map((day) => (
+            <th key={day}>{day}</th>
+          ))}
         </tr>
         {renderWeeks()}
       </tbody>

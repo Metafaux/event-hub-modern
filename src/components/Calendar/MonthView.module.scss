@@ -1,4 +1,17 @@
 .dayCell {
   border: 1px solid #ccc;
+  padding: 0.1rem;
+  width: 14.28%;
+}
+
+.calendarTable {
   font-size: small;
+  height: 100%;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.daysHeader {
+  height: 1.6em;
 }

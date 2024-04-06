@@ -4,4 +4,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [Building for relative paths](https://create-react-app.dev/docs/deployment/#building-for-relative-paths)
 
-Exploration of using ChatGPT for code productivity
+Exploration of using GitHub Copilot & ChatGPT for code productivity

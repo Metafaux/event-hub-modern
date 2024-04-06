@@ -48,7 +48,7 @@ export const getMonthGridData = (date: Date) => {
   while (getYearMonthIndex(renderDate) <= monthToRenderIndex) {
     const days: string[] = [];
     for (let i = 0; i < DAYS_IN_WEEK; i++) {
-      days.push(renderDate.toDateString());
+      days.push(renderDate.getDate().toString());
       renderDate.setDate(renderDate.getDate() + INCREMENT);
     }
     weeks.push(days);
