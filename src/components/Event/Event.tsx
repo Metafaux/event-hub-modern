@@ -1,3 +1,5 @@
+import styles from './Event.module.scss';
+
 interface EventProps {
   title: string;
   dateTime: Date;
@@ -15,7 +17,7 @@ const Event = ({
   description,
   imageUrl
 }: EventProps) => (
-  <div>
+  <div className={styles.eventContainer}>
     <h1>{title}</h1>
     <p>{dateTime.toLocaleString()}</p>
     <p>Venue: {venueName}</p>

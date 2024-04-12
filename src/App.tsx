@@ -52,9 +52,6 @@ const App = () => {
             <h3>Event Hub Modern: Subconscious Dynamics</h3>
           </header>
           <SignUpForm onSubmit={handleSignUp} />
-          <pre>{JSON.stringify(appData, null, 2)}</pre>
-          <p>{appData[0].title.rendered}</p>
-          <p>{new Date(appData[0].acf.event_date_time).toLocaleString()}</p>
           <Event
             title={appData[0].title.rendered}
             dateTime={new Date(appData[0].acf.event_date_time)}
