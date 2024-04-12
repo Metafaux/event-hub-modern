@@ -1,7 +1,6 @@
 interface EventProps {
   title: string;
-  date: string;
-  time: string;
+  dateTime: Date;
   venueName: string;
   address: string;
   description: string;
@@ -10,24 +9,20 @@ interface EventProps {
 
 const Event = ({
   title,
-  date,
-  time,
+  dateTime,
   venueName,
   address,
   description,
   imageUrl
-}: EventProps) => {
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>Date: {date}</p>
-      <p>Time: {time}</p>
-      <p>Venue: {venueName}</p>
-      <p>Address: {address}</p>
-      <p>Description: {description}</p>
-      <img src={imageUrl} alt={title} />
-    </div>
-  );
-};
+}: EventProps) => (
+  <div>
+    <h1>{title}</h1>
+    <p>{dateTime.toLocaleString()}</p>
+    <p>Venue: {venueName}</p>
+    <p>Address: {address}</p>
+    <p>Description: {description}</p>
+    {imageUrl !== '' && <img src={imageUrl} alt={title} />}
+  </div>
+);
 
 export default Event;
