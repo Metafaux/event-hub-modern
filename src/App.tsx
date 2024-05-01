@@ -1,13 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
 import SignUpForm from './components/SignUpForm';
-import Event from './components/Event/Event';
+// import Event from './components/Event/Event';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import type { CmsEventItem } from './types/CmsWordpressTypes';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import CalendarMonthView from './components/Calendar/MonthView';
 
 const cmsEventsUrl = process.env.REACT_APP_API_URL ?? '';
 const STATUS_404 = 404;
+
+const handleSignUp = (name: string, email: string) => {
+  // eslint-disable-next-line no-console
+  console.log(`Name: ${name}; Email: ${email}`);
+};
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <CalendarMonthView date={new Date()} />
+  },
+  {
+    path: '/event',
+    element: <div>Event Placeholder</div>
+  },
+  {
+    path: '/signup',
+    element: <SignUpForm onSubmit={handleSignUp} />
+  }
+]);
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/indent */
 const App = () => {
@@ -38,10 +60,6 @@ const App = () => {
       });
   }, []);
 
-  const handleSignUp = (name: string, email: string) => {
-    // eslint-disable-next-line no-console
-    console.log(`Name: ${name}; Email: ${email}`);
-  };
   return (
     <div className="App">
       {error && <p>{error}</p>}
@@ -51,15 +69,15 @@ const App = () => {
             <img src={logo} className="App-logo" alt="logo" />
             <h3>Event Hub Modern: Subconscious Dynamics</h3>
           </header>
-          <SignUpForm onSubmit={handleSignUp} />
-          <Event
+          <RouterProvider router={router} />
+          {/* <Event
             title={appData[0].title.rendered}
             dateTime={new Date(appData[0].acf.event_date_time)}
             venueName={appData[0].acf.venue_name}
             address={appData[0].acf.event_address}
             description={appData[0].acf.event_description}
             imageUrl=""
-          />
+          /> */}
         </>
       )}
     </div>
