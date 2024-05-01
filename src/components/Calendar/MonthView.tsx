@@ -17,9 +17,9 @@ const CalendarMonthView = ({ date }: CalendarProps) => {
   const renderWeeks = () => {
     const FIRST_INDEX = 0;
     const monthGridData = getMonthGridData(date);
-    return monthGridData.map((week, i) => (
+    return monthGridData.map((week) => (
       <tr key={`week-${week[FIRST_INDEX]}`} className="weekRow">
-        {week.map((day, j) => (
+        {week.map((day) => (
           <td key={`day-${day}`} className={styles.dayCell}>
             <div>{day}</div>
           </td>
