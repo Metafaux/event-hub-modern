@@ -19,7 +19,19 @@ const Event = ({
 }: EventProps) => (
   <div className={styles.eventContainer}>
     <h1>{title}</h1>
-    <p>{dateTime.toLocaleString()}</p>
+    <p>
+      Begins:
+      {' ' +
+        dateTime.toLocaleString(navigator.language, {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          timeZoneName: 'short'
+        })}
+    </p>
     <p>Venue: {venueName}</p>
     <p>Address: {address}</p>
     <p>Description: {description}</p>
