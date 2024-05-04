@@ -1,5 +1,11 @@
 /* eslint-disable no-magic-numbers */
-import { daysInMonth, firstSundayOfMonthView, getMonthGridData } from './utils';
+import { CmsEventItem } from '../../types/CmsWordpressTypes';
+import {
+  daysInMonth,
+  firstSundayOfMonthView,
+  getMonthGridData,
+  sortEventsByDate
+} from './utils';
 
 describe('Calendar logic', () => {
   it('returns the correct number of days in a month', () => {
@@ -51,52 +57,84 @@ describe('Calendar logic', () => {
 
   it('gets month grid data', () => {
     const januaryGrid = [
-      [
-        'Sun Dec 31 2023',
-        'Mon Jan 01 2024',
-        'Tue Jan 02 2024',
-        'Wed Jan 03 2024',
-        'Thu Jan 04 2024',
-        'Fri Jan 05 2024',
-        'Sat Jan 06 2024'
-      ],
-      [
-        'Sun Jan 07 2024',
-        'Mon Jan 08 2024',
-        'Tue Jan 09 2024',
-        'Wed Jan 10 2024',
-        'Thu Jan 11 2024',
-        'Fri Jan 12 2024',
-        'Sat Jan 13 2024'
-      ],
-      [
-        'Sun Jan 14 2024',
-        'Mon Jan 15 2024',
-        'Tue Jan 16 2024',
-        'Wed Jan 17 2024',
-        'Thu Jan 18 2024',
-        'Fri Jan 19 2024',
-        'Sat Jan 20 2024'
-      ],
-      [
-        'Sun Jan 21 2024',
-        'Mon Jan 22 2024',
-        'Tue Jan 23 2024',
-        'Wed Jan 24 2024',
-        'Thu Jan 25 2024',
-        'Fri Jan 26 2024',
-        'Sat Jan 27 2024'
-      ],
-      [
-        'Sun Jan 28 2024',
-        'Mon Jan 29 2024',
-        'Tue Jan 30 2024',
-        'Wed Jan 31 2024',
-        'Thu Feb 01 2024',
-        'Fri Feb 02 2024',
-        'Sat Feb 03 2024'
-      ]
+      ['31', '1', '2', '3', '4', '5', '6'],
+      ['7', '8', '9', '10', '11', '12', '13'],
+      ['14', '15', '16', '17', '18', '19', '20'],
+      ['21', '22', '23', '24', '25', '26', '27'],
+      ['28', '29', '30', '31', '1', '2', '3']
     ];
     expect(getMonthGridData(new Date(2024, 0, 1))).toEqual(januaryGrid);
+  });
+
+  it('creates an id lookup and month lookup for events', () => {
+    const events: CmsEventItem[] = [
+      {
+        id: 21,
+        date_gmt: '2024-01-01T00:00:00',
+        modified_gmt: '2024-01-01T00:00:00',
+        type: 'event',
+        title: { rendered: 'Event 1' },
+        acf: {
+          event_address: '123 Main St',
+          event_date_time: '2024-01-01T00:00:00',
+          venue_name: 'Venue 1',
+          event_description: 'Description 1'
+        },
+        meta: { _acf_changed: false }
+      },
+      {
+        id: 22,
+        date_gmt: '2024-01-02T00:00:00',
+        modified_gmt: '2024-01-02T00:00:00',
+        type: 'event',
+        title: { rendered: 'Event 2' },
+        acf: {
+          event_address: '456 Main St',
+          event_date_time: '2024-01-02T00:00:00',
+          venue_name: 'Venue 2',
+          event_description: 'Description 2'
+        },
+        meta: { _acf_changed: false }
+      }
+    ];
+
+    expect(sortEventsByDate(events)).toEqual({
+      eventIdLookup: {
+        event21: {
+          id: 21,
+          date_gmt: '2024-01-01T00:00:00',
+          modified_gmt: '2024-01-01T00:00:00',
+          type: 'event',
+          title: { rendered: 'Event 1' },
+          acf: {
+            event_address: '123 Main St',
+            event_date_time: '2024-01-01T00:00:00',
+            venue_name: 'Venue 1',
+            event_description: 'Description 1'
+          },
+          meta: { _acf_changed: false }
+        },
+        event22: {
+          id: 22,
+          date_gmt: '2024-01-02T00:00:00',
+          modified_gmt: '2024-01-02T00:00:00',
+          type: 'event',
+          title: { rendered: 'Event 2' },
+          acf: {
+            event_address: '456 Main St',
+            event_date_time: '2024-01-02T00:00:00',
+            venue_name: 'Venue 2',
+            event_description: 'Description 2'
+          },
+          meta: { _acf_changed: false }
+        }
+      },
+      monthLookup: {
+        month202400: {
+          day01: ['21'],
+          day02: ['22']
+        }
+      }
+    });
   });
 });

@@ -1,6 +1,9 @@
 // https://stackoverflow.com/questions/222309/calculate-last-day-of-month
 
+import { CmsEventItem } from '../../types/CmsWordpressTypes';
+
 const INCREMENT = 1;
+const TWO_DIGIT_STRING = 2;
 
 export const daysInMonth = (date: Date) => {
   const BOTTOM_3_BITS = 3;
@@ -55,4 +58,41 @@ export const getMonthGridData = (date: Date) => {
   }
 
   return weeks;
+};
+
+/** sortEventsByDate
+ *
+ * Returns a lookup object for event ids and a lookup object for events by month and day.
+ *
+ * When function receives ISO 8601 date strings from CMS, it converts them to Date objects.
+ * ISO 8601 month date format is base-1 (i.e. January is 1, December is 12).
+ * JavaScript month date format is base-0 (i.e. January is 0, December is 11).
+ *
+ * @param events CmsEventItem[]
+ * @returns { eventIdLookup: Record<string, CmsEventItem>, monthLookup: Record<string, Record<string, string[]>}
+ */
+export const sortEventsByDate = (events: CmsEventItem[]) => {
+  const eventIdLookup: Record<string, CmsEventItem> = {};
+  // pattern: month202403: { day01: id[], day02: id[] }
+  const monthLookup: Record<string, Record<string, string[]>> = {};
+
+  events.forEach((event) => {
+    const eventStart = new Date(event.acf.event_date_time);
+    const paddedMonthIndex = eventStart
+      .getMonth()
+      .toString()
+      .padStart(TWO_DIGIT_STRING, '0');
+    const monthKey = `month${eventStart.getFullYear()}${paddedMonthIndex}`;
+
+    if (!monthLookup[monthKey]) monthLookup[monthKey] = {};
+    const paddedDayIndex =
+      'day' + eventStart.getDate().toString().padStart(TWO_DIGIT_STRING, '0');
+    if (!monthLookup[monthKey][paddedDayIndex])
+      monthLookup[monthKey][paddedDayIndex] = [];
+    monthLookup[monthKey][paddedDayIndex].push(event.id.toString());
+
+    eventIdLookup['event' + event.id.toString()] = event;
+  });
+
+  return { eventIdLookup, monthLookup };
 };
