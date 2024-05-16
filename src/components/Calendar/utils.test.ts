@@ -69,20 +69,6 @@ describe('Calendar logic', () => {
   it('creates an id lookup and month lookup for events', () => {
     const events: CmsEventItem[] = [
       {
-        id: 21,
-        date_gmt: '2024-01-01T00:00:00',
-        modified_gmt: '2024-01-01T00:00:00',
-        type: 'event',
-        title: { rendered: 'Event 1' },
-        acf: {
-          event_address: '123 Main St',
-          event_date_time: '2024-01-01T00:00:00',
-          venue_name: 'Venue 1',
-          event_description: 'Description 1'
-        },
-        meta: { _acf_changed: false }
-      },
-      {
         id: 22,
         date_gmt: '2024-01-02T00:00:00',
         modified_gmt: '2024-01-02T00:00:00',
@@ -93,6 +79,20 @@ describe('Calendar logic', () => {
           event_date_time: '2024-01-02T00:00:00',
           venue_name: 'Venue 2',
           event_description: 'Description 2'
+        },
+        meta: { _acf_changed: false }
+      },
+      {
+        id: 21,
+        date_gmt: '2024-01-01T00:00:00',
+        modified_gmt: '2024-01-01T00:00:00',
+        type: 'event',
+        title: { rendered: 'Event 1' },
+        acf: {
+          event_address: '123 Main St',
+          event_date_time: '2024-01-01T00:00:00',
+          venue_name: 'Venue 1',
+          event_description: 'Description 1'
         },
         meta: { _acf_changed: false }
       }

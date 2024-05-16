@@ -60,6 +60,31 @@ export const getMonthGridData = (date: Date) => {
   return weeks;
 };
 
+/** createMonthKey
+ *
+ * @param date
+ * @returns string key for month formatted as 'monthYYYYMM'
+ */
+export const createMonthKey = (date: Date) => {
+  const paddedMonthIndex = date
+    .getMonth()
+    .toString()
+    .padStart(TWO_DIGIT_STRING, '0');
+  return `month${date.getFullYear()}${paddedMonthIndex}`;
+};
+
+export const createDayKey = (date: Date) => {
+  const paddedDayIndex =
+    'day' + date.getDate().toString().padStart(TWO_DIGIT_STRING, '0');
+  return paddedDayIndex;
+};
+
+// const { data } = useGetEventsQuery();
+// const sortedEvents = useMemo(() => {
+//   if (!data) return {};
+//   return sortEventsByDate(data);
+// }, [data]);
+
 /** sortEventsByDate
  *
  * Returns a lookup object for event ids and a lookup object for events by month and day.
@@ -74,15 +99,12 @@ export const getMonthGridData = (date: Date) => {
 export const sortEventsByDate = (events: CmsEventItem[]) => {
   const eventIdLookup: Record<string, CmsEventItem> = {};
   // pattern: month202403: { day01: id[], day02: id[] }
+  // even the days should be sorted by hour
   const monthLookup: Record<string, Record<string, string[]>> = {};
 
   events.forEach((event) => {
     const eventStart = new Date(event.acf.event_date_time);
-    const paddedMonthIndex = eventStart
-      .getMonth()
-      .toString()
-      .padStart(TWO_DIGIT_STRING, '0');
-    const monthKey = `month${eventStart.getFullYear()}${paddedMonthIndex}`;
+    const monthKey = createMonthKey(eventStart);
 
     if (!monthLookup[monthKey]) monthLookup[monthKey] = {};
     const paddedDayIndex =
@@ -95,4 +117,14 @@ export const sortEventsByDate = (events: CmsEventItem[]) => {
   });
 
   return { eventIdLookup, monthLookup };
+};
+
+export const getDayEvents = (
+  date: Date,
+  events: Record<string, Record<string, string[]>>
+) => {
+  const monthKey = createMonthKey(date);
+  const paddedDayIndex = createDayKey(date);
+
+  return events[paddedDayIndex]?.[monthKey] ?? [];
 };
