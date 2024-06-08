@@ -77,6 +77,7 @@ describe('Calendar logic', () => {
         acf: {
           event_address: '456 Main St',
           event_date_time: '2024-01-02T00:00:00',
+          event_end_date_time: '2024-01-02T02:00:00',
           venue_name: 'Venue 2',
           event_description: 'Description 2'
         },
@@ -91,6 +92,7 @@ describe('Calendar logic', () => {
         acf: {
           event_address: '123 Main St',
           event_date_time: '2024-01-01T00:00:00',
+          event_end_date_time: '2024-01-01T02:00:00',
           venue_name: 'Venue 1',
           event_description: 'Description 1'
         },
@@ -109,6 +111,7 @@ describe('Calendar logic', () => {
           acf: {
             event_address: '123 Main St',
             event_date_time: '2024-01-01T00:00:00',
+            event_end_date_time: '2024-01-01T02:00:00',
             venue_name: 'Venue 1',
             event_description: 'Description 1'
           },
@@ -123,6 +126,7 @@ describe('Calendar logic', () => {
           acf: {
             event_address: '456 Main St',
             event_date_time: '2024-01-02T00:00:00',
+            event_end_date_time: '2024-01-02T02:00:00',
             venue_name: 'Venue 2',
             event_description: 'Description 2'
           },

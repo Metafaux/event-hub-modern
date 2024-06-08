@@ -1,17 +1,9 @@
 import styles from './Event.module.scss';
-
-interface EventProps {
-  title: string;
-  dateTime: Date;
-  venueName: string;
-  address: string;
-  description: string;
-  imageUrl: string;
-}
+import { EventProps } from '../../types/EventTypes';
 
 const Event = ({
   title,
-  dateTime,
+  dateTimeStart,
   venueName,
   address,
   description,
@@ -22,7 +14,7 @@ const Event = ({
     <p>
       Begins:
       {' ' +
-        dateTime.toLocaleString(navigator.language, {
+        new Date(dateTimeStart).toLocaleString(navigator.language, {
           weekday: 'long',
           year: 'numeric',
           month: 'long',

@@ -8,16 +8,7 @@ interface EventContainerProps {
 const EventContainer = ({ id }: EventContainerProps) => {
   const { data: eventData } = useGetEventQuery(id);
 
-  return eventData ? (
-    <Event
-      title={eventData.title.rendered}
-      dateTime={new Date(eventData.acf.event_date_time)}
-      venueName={eventData.acf.venue_name}
-      address={eventData.acf.event_address}
-      description={eventData.acf.event_description}
-      imageUrl=""
-    />
-  ) : null;
+  return eventData ? <Event {...eventData} /> : null;
 };
 
 export default EventContainer;

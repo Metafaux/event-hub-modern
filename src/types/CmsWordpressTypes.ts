@@ -22,6 +22,7 @@ export interface CmsEventItem extends WordpressCmsItem {
   acf: {
     event_address: string;
     event_date_time: string;
+    event_end_date_time: string;
     venue_name: string;
     event_description: string;
     // event_image: string;
